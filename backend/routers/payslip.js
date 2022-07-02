@@ -44,6 +44,20 @@ router.post("/new_payslip", async (req, res) => {
   });
 
 
+//fetch data for advance settlement
+router.post("/fetch_advanceSettelement", async (req, res) => {
+  try {
+    const data_advance=await payslip.findOne({
+      payslip_id:req.body.payslip_id
+    })
+    res
+      .status(200)
+      .json({data_advance});
+  } catch (err) {
+      console.log({err})
+    res.status(500).json(err);
+  }
+});
 
 //send email notification to acc department and person filling form
 router.post("/payslip_mail_send", async (req, res) => {
@@ -56,10 +70,11 @@ router.post("/payslip_mail_send", async (req, res) => {
           pass: "wggbgqqhfwaiaint",
         },
       });
-  
+      var mailList = ['shiv7255918@gmail.com', 'iskdhn.technical@gmail.com','niraj.nitjsr@gmail.com'];
+
       let mailOptions = {
         from: "iskdhn.technical@gmail.com",
-        to: req.body.reciever_mailId,
+        to: mailList,
         subject: `${req.body.subject}`,
         html: `<h1><b>${
           req.body.payslip_id
@@ -111,31 +126,348 @@ router.post("/payslip_mail_send", async (req, res) => {
     }
   });
 
+  //send email notification to acc department and person filling form for advance
+router.post("/payslip_mail_send_advance", async (req, res) => {
+  try {
+    // sending mail to tutor
+    let transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: "iskdhn.technical@gmail.com",
+        pass: "wggbgqqhfwaiaint",
+      },
+    });
+    var mailList = ['shiv7255918@gmail.com', 'satish@gmail.com','niraj.nitjsr@gmail.com'];
 
+    let mailOptions = {
+      from: "iskdhn.technical@gmail.com",
+      to: mailList,
+      subject: `${req.body.subject}`,
+      html: `<h1><b>${
+        req.body.payslip_id
+      }</b>(Advance)</h1><br/>
+      
+        Name : ${req.body.name} <br/>
+        Department : ${req.body.department} <br/>
+        Email : ${req.body.email_id} <br/>
+        Phone : ${req.body.phone} <br/>
+        Cost Center : ${req.body.cost_center} <br/>
+        Amount :₹ ${req.body.amount} <br/>
+        Details :<br/> ${req.body.details} <br/>
+        
+      <br /><p>Thanks,</p><p>Accounts Department</p><p>Email: iskdhn.technical@gmail.com, Contact: +917255918744</p><br/><br /><footer><p>Copyright © 2020 Tutorpoint. All rights reserved Abhay Education Pvt. Ltd.</p></footer>`,
+    };
 
-  // let mailOptions = {
-  //   from: "shiv7255918@gmail.com",
-  //   to: req.body.email,
-  //   subject: `${req.body.param1} | ${req.body.param3}`,
-  //   html: `<center><img src="https://tutorpoint.in/assets/images/logo.png" style="width: 125px" /></center><br /><br /><p><b>Dear ${
-  //     req.body.name
-  //   },</b></p><p>We have a session for you.</p><p>Session ID: ${
-  //     req.body.param2
-  //   }</p><p>Subject/Topic name: ${req.body.param3}</p><p>Date and Time ${
-  //     req.body.templateName.includes("live_session_tutor_notify")
-  //       ? ""
-  //       : "(Deadline)"
-  //   }: ${req.body.param4}</p><p>Duration: ${
-  //     req.body.templateName.includes("live_session_tutor_notify")
-  //       ? req.body.param5
-  //       : "N/A"
-  //   }</p><p>We will pay you ${
-  //     req.body.param6
-  //   }</p><p>Are you confident in this subject? Can you perform very well in this session? If yes, then press on the below button to show your interest. Please check the study materials after you press the button below.</p><button style='background-color: #59C173; padding: 10px 18px; border: 1px solid #59C173; border-radius: 20px'><a href="https://tutor-response.tutorpoint.in/${
-  //     req.body.param7
-  //   }" target="_blank" style='text-decoration: none; color: #ffff'>I am Interested</a></button><p>Please wait after you show your interest. We will get back to you shortly to get your confirmation for this session. 
-  //   Disclaimer:</p><p><b>1.Never take these sessions casually. They impact your ratings.</b></p><p><b>2. Showing interest doesn't mean that we have assigned the session to you.</b></p><p>To stop receiving Whatsapp notifications from us, send an official email to us.</p><br /><p>Thanks,</p><p>Team Tutorpoint</p><p>Email: support@tutorpoint.in, Contact: +917761093194</p><br/><br /><footer><p>Copyright © 2020 Tutorpoint. All rights reserved Abhay Education Pvt. Ltd.</p></footer>`,
-  // };
+    await transporter.sendMail(mailOptions, function (error, info) {
+      if (error) {
+        console.log(error);
+      } else {
+        console.log("Email sent: " + info.response);
+      }
+    });
+
+  //   if (req.body.medium == "mail") {
+  //     const updateSession = await Session.findOneAndUpdate(
+  //       { session_id: req.body.sessionId },
+  //       {
+  //         $push: { notified_tutors: req.body.notified_tutors },
+  //       },
+  //       {
+  //         upsert: true,
+  //         new: true,
+  //         setDefaultsOnInsert: true,
+  //       }
+  //     );
+  //     console.log(updateSession);
+  //   }
+
+    // const updateTutor = await Session.updateOne(
+    //   { session_id: req.body.sessionId, "notified_tutors.tutor_id": req.body.tutorId },
+    //   { $set: { "notified_tutors.$.medium" : 'wa-mail' } }
+    // );
+
+    res.status(200).json("Email sent");
+  } catch (err) {
+    console.log(err);
+    res.status(500).json("Email not sent");
+  }
+});
+
+ //send email notification to acc department and person filling form for advance settlement 
+ router.post("/payslip_mail_send_advanceSettlement", async (req, res) => {
+  try {
+
+    const update_advance=await payslip.updateOne({
+      payslip_id:req.body.payslip_id
+    },{
+      details:req.body.details
+    })
+
+    // sending mail to tutor
+    let transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: "iskdhn.technical@gmail.com",
+        pass: "wggbgqqhfwaiaint",
+      },
+    });
+    var mailList = ['shiv7255918@gmail.com', 'iskdhn.technical@gmail.com'];
+
+    let mailOptions = {
+      from: "iskdhn.technical@gmail.com",
+      to: mailList,
+      subject: `${req.body.subject}`,
+      html: `<h1><b>${
+        req.body.payslip_id
+      }</b>(Advance Settlement)</h1><br/>
+      
+        Name : ${req.body.name} <br/>
+        Department : ${req.body.department} <br/>
+        Email : ${req.body.email_id} <br/>
+        Phone : ${req.body.phone} <br/>
+        Cost Center : ${req.body.cost_center} <br/>
+        Amount :₹ ${req.body.amount} <br/>
+        Details :<br/> ${req.body.details} <br/>
+        
+      <br /><p>Thanks,</p><p>Accounts Department</p><p>Email: iskdhn.technical@gmail.com, Contact: +917255918744</p><br/><br /><footer><p>Copyright © 2020 Tutorpoint. All rights reserved Abhay Education Pvt. Ltd.</p></footer>`,
+    };
+
+    await transporter.sendMail(mailOptions, function (error, info) {
+      if (error) {
+        console.log(error);
+      } else {
+        console.log("Email sent: " + info.response);
+      }
+    });
+
+  //   if (req.body.medium == "mail") {
+  //     const updateSession = await Session.findOneAndUpdate(
+  //       { session_id: req.body.sessionId },
+  //       {
+  //         $push: { notified_tutors: req.body.notified_tutors },
+  //       },
+  //       {
+  //         upsert: true,
+  //         new: true,
+  //         setDefaultsOnInsert: true,
+  //       }
+  //     );
+  //     console.log(updateSession);
+  //   }
+
+    // const updateTutor = await Session.updateOne(
+    //   { session_id: req.body.sessionId, "notified_tutors.tutor_id": req.body.tutorId },
+    //   { $set: { "notified_tutors.$.medium" : 'wa-mail' } }
+    // );
+
+    res.status(200).json("Email sent");
+  } catch (err) {
+    console.log(err);
+    res.status(500).json("Email not sent");
+  }
+});
+
+// send mail to hod
+router.post("/payslip_mail_send_hod", async (req, res) => {
+  try {
+    // sending mail to tutor
+    let transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: "iskdhn.technical@gmail.com",
+        pass: "wggbgqqhfwaiaint",
+      },
+    });
+    // var mailList = 'shiv7255918@gmail.com';
+
+    let mailOptions = {
+      from: "iskdhn.technical@gmail.com",
+      to: req.body.hod,
+      subject: `${req.body.subject}`,
+      html: `<h1><b>${
+        req.body.payslip_id
+      }</b></h1><br/>
+      
+        Name : ${req.body.name} <br/>
+        Department : ${req.body.department} <br/>
+        Email : ${req.body.email_id} <br/>
+        Phone : ${req.body.phone} <br/>
+        Cost Center : ${req.body.cost_center} <br/>
+        Amount :₹ ${req.body.amount} <br/>
+        Details :<br/> ${req.body.details} <br/>
+
+        <button id="approve">Approve</button>&nbsp<button id="raiseQuery">Raise Query</button>
+        
+      <br /><p>Thanks,</p><p>Accounts Department</p><p>Email: iskdhn.technical@gmail.com, Contact: +917255918744</p><br/><br /><footer><p>Copyright © 2020 Tutorpoint. All rights reserved Abhay Education Pvt. Ltd.</p></footer>`,
+    };
+
+    await transporter.sendMail(mailOptions, function (error, info) {
+      if (error) {
+        console.log(error);
+      } else {
+        console.log("Email sent: " + info.response);
+      }
+    });
+
+  //   if (req.body.medium == "mail") {
+  //     const updateSession = await Session.findOneAndUpdate(
+  //       { session_id: req.body.sessionId },
+  //       {
+  //         $push: { notified_tutors: req.body.notified_tutors },
+  //       },
+  //       {
+  //         upsert: true,
+  //         new: true,
+  //         setDefaultsOnInsert: true,
+  //       }
+  //     );
+  //     console.log(updateSession);
+  //   }
+
+    // const updateTutor = await Session.updateOne(
+    //   { session_id: req.body.sessionId, "notified_tutors.tutor_id": req.body.tutorId },
+    //   { $set: { "notified_tutors.$.medium" : 'wa-mail' } }
+    // );
+
+    res.status(200).json("Email sent");
+  } catch (err) {
+    console.log(err);
+    res.status(500).json("Email not sent");
+  }
+});
+
+//send email notification to acc department and person filling form when it is approved
+router.post("/payslip_approved", async (req, res) => {
+  try {
+    // sending mail to tutor
+    let transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: "iskdhn.technical@gmail.com",
+        pass: "wggbgqqhfwaiaint",
+      },
+    });
+    var mailList = ['shiv7255918@gmail.com', 'iskdhn.technical@gmail.com'];
+
+    let mailOptions = {
+      from: "iskdhn.technical@gmail.com",
+      to: mailList,
+      subject: `Approved`,
+      html: `<h3>Your request with payslip id <b>${req.body.payslip_id}</b> is <b> Approved</b></h3><br/>
+        
+        Name : ${req.body.name} <br/>
+        Department : ${req.body.department} <br/>
+        Email : ${req.body.email_id} <br/>
+        Phone : ${req.body.phone} <br/>
+        Cost Center : ${req.body.cost_center} <br/>
+        Amount :₹ ${req.body.amount} <br/>
+        Details :<br/> ${req.body.details} <br/>
+        
+      <br /><p>Thanks,</p><p>Accounts Department</p><p>Email: iskdhn.technical@gmail.com, Contact: +917255918744</p><br/><br /><footer><p>Copyright © 2020 Tutorpoint. All rights reserved Abhay Education Pvt. Ltd.</p></footer>`,
+    };
+
+    await transporter.sendMail(mailOptions, function (error, info) {
+      if (error) {
+        console.log(error);
+      } else {
+        console.log("Email sent: " + info.response);
+      }
+    });
+
+  //   if (req.body.medium == "mail") {
+  //     const updateSession = await Session.findOneAndUpdate(
+  //       { session_id: req.body.sessionId },
+  //       {
+  //         $push: { notified_tutors: req.body.notified_tutors },
+  //       },
+  //       {
+  //         upsert: true,
+  //         new: true,
+  //         setDefaultsOnInsert: true,
+  //       }
+  //     );
+  //     console.log(updateSession);
+  //   }
+
+    // const updateTutor = await Session.updateOne(
+    //   { session_id: req.body.sessionId, "notified_tutors.tutor_id": req.body.tutorId },
+    //   { $set: { "notified_tutors.$.medium" : 'wa-mail' } }
+    // );
+
+    res.status(200).json("Email sent");
+  } catch (err) {
+    console.log(err);
+    res.status(500).json("Email not sent");
+  }
+});
+
+//send email notification to acc department and person filling form when query is raised
+router.post("/payslip_query_raised", async (req, res) => {
+  try {
+    // sending mail to tutor
+    let transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: "iskdhn.technical@gmail.com",
+        pass: "wggbgqqhfwaiaint",
+      },
+    });
+    var mailList = ['shiv7255918@gmail.com', 'iskdhn.technical@gmail.com'];
+
+    let mailOptions = {
+      from: "iskdhn.technical@gmail.com",
+      to: mailList,
+      subject: `Query Raised`,
+      html: `<h3>HOD has been queried on your payslip no. <b>${req.body.payslip_id}</b></h3><br/>
+
+      <b>Query</b><br/>
+        <p>${req.body.query}</p></br>
+       <p style="color:light-gray" >
+        Name : ${req.body.name} <br/>
+        Department : ${req.body.department} <br/>
+        Email : ${req.body.email_id} <br/>
+        Phone : ${req.body.phone} <br/>
+        Cost Center : ${req.body.cost_center} <br/>
+        Amount :₹ ${req.body.amount} <br/>
+        Details :<br/> ${req.body.details} <br/>
+        </p>
+      <br /><p>Thanks,</p><p>Accounts Department</p><p>Email: iskdhn.technical@gmail.com, Contact: +917255918744</p><br/><br /><footer><p>Copyright © 2020 Tutorpoint. All rights reserved Abhay Education Pvt. Ltd.</p></footer>`,
+    };
+
+    await transporter.sendMail(mailOptions, function (error, info) {
+      if (error) {
+        console.log(error);
+      } else {
+        console.log("Email sent: " + info.response);
+      }
+    });
+
+  //   if (req.body.medium == "mail") {
+  //     const updateSession = await Session.findOneAndUpdate(
+  //       { session_id: req.body.sessionId },
+  //       {
+  //         $push: { notified_tutors: req.body.notified_tutors },
+  //       },
+  //       {
+  //         upsert: true,
+  //         new: true,
+  //         setDefaultsOnInsert: true,
+  //       }
+  //     );
+  //     console.log(updateSession);
+  //   }
+
+    // const updateTutor = await Session.updateOne(
+    //   { session_id: req.body.sessionId, "notified_tutors.tutor_id": req.body.tutorId },
+    //   { $set: { "notified_tutors.$.medium" : 'wa-mail' } }
+    // );
+
+    res.status(200).json("Email sent");
+  } catch (err) {
+    console.log(err);
+    res.status(500).json("Email not sent");
+  }
+});
 
   module.exports =router
   

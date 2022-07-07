@@ -5,12 +5,15 @@ import { BrowserRouter as Router,
   Route,
   Link } from 'react-router-dom'  
 import HodResponse from './pages/hod_response';
+import Dashboard from './components/Dashboard'
 
 function App() {
 
   return (
     <div className="App">
-     <HodResponse/>
+     {/* <HodResponse/> */}
+     <Dashboard/>
+
     </div>
   );
 }

@@ -1,7 +1,12 @@
 .card{
-    margin-left: 120px;
+    margin-left: 600px;
 }
 
 .text{
     font-size: 200px;
+}
+
+.butt{
+    
+margin-right: 20px;
 }

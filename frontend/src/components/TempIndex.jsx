@@ -30,6 +30,8 @@ const TempIndex = () => {
                         ifsc_code={data.ifsc_code}
                         account_no={data.account_no}
                         details_of_items={data.details_of_items}
+                        
+
                         // imgsrc={data.photos}
                         // title={data.propertyName}
                         // address={data.city}

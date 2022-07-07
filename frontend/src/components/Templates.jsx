@@ -1,5 +1,5 @@
 import React from "react";
-
+import Templates from './Templates.css'
 
 function Template(_props) {
 
@@ -22,6 +22,9 @@ function Template(_props) {
         {_props.ifsc_code!=-1? <h5> IFSC code : {_props.ifsc_code} </h5>:<h5></h5>}
         {_props.account_no!=-1? <h5> Bank Account No. : {_props.account_no} </h5>:<h5></h5>}
     <br/>
+    <button type="button" class="btn btn-secondary butt" >Move to Paid</button>
+    <button type="button" class="btn btn-secondary butt">Move to Settled</button>
+    <button type="button" class="btn btn-secondary butt">Move to Printed&Filed</button>
         </div>
       </div>
     </>

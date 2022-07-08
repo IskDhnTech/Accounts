@@ -6,11 +6,11 @@ import payment_status from '../Context/Payment_status';
 import Dashboard from './Dashboard';
 export default props => {
 
-  const [request,setRequest]=useState("none")
+  const [request,setRequest]=useState("pending")
 
-  useEffect(() => {
-    <Dashboard/>
-  },[request]);
+  // useEffect(() => {
+  //   <Dashboard/>
+  // },[request]);
 
   return (
 
@@ -22,7 +22,7 @@ export default props => {
   <button onClick={()=>{setRequest("approved")}} >Approved</button>
   <button onClick={()=>{setRequest("paid")}} >Paid</button>
   <button onClick={()=>{setRequest("settled")}} >Settled</button>
-  <button onClick={()=>{setRequest("printed&filed")}} >Printed&filed</button>
+  <button onClick={()=>{setRequest("printedfiled")}} >Printed&filed</button>
 </div>
 {console.log(request)}
 </payment_status.Provider>

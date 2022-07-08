@@ -1,6 +1,6 @@
 import React from 'react';
 import TempIndex from './TempIndex';
-import './Printed&Filed.css'
+import './PrintedFiled.css'
 export default props => {
   return (
     <>

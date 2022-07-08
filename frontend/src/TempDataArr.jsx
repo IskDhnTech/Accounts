@@ -12,7 +12,23 @@ const tempDataArr=[
         hod:"HG NPP",
         ifsc_code:"-1",
         account_no:"-1",  
-        details_of_items:[["bulb","200"],["tape","10"],["screw driver","500"]]
+        details_of_items:[
+            {
+              "id": "1",
+              "item_name": "bulb",
+              "amt": 200
+            },
+            {
+                "id": "2",
+                "item_name": "tape",
+                "amt": 10,
+            },
+            {
+                "id": "3",
+                "item_name": "screw driver",
+                "amt": 500
+            }
+          ]
 },
 {
     payslip_no:"2",
@@ -26,10 +42,26 @@ const tempDataArr=[
         hod:"HG NPP",
         ifsc_code:"123",
         account_no:"1234567890",  
-        details_of_items:[["banana","100"],["orange","60"],["guava","40"]]
-},
+        details_of_items:[
+            {
+              "id": "1",
+              "item_name": "banana",
+              "amt": 100
+            },
+            {
+                "id": "2",
+                "item_name": "orange",
+                "amt": 60,
+            },
+            {
+                "id": "3",
+                "item_name": "guava",
+                "amt": 40
+            }
+          ]
+        },
 {
-    payslip_no:"2",
+    payslip_no:"3",
         name:"Vishwajeet Singh",
         email_id:"vishwajeet@voice.com",
         mobile_no:"124",
@@ -40,7 +72,23 @@ const tempDataArr=[
         hod:"HG NPP",
         ifsc_code:"120",
         account_no:"1334567890",
-        details_of_items:[["petrol","500"],["tyre_change","100"],["challan","3500"]]
+        details_of_items:[
+            {
+              "id": "1",
+              "item_name": "petrol",
+              "amt": 500,
+            },
+            {
+                "id": "2",
+                "item_name": "tyre change",
+                "amt": 100,
+            },
+            {
+                "id": "3",
+                "item_name": "challan",
+                "amt": 3500
+            }
+          ]
 }, ]
 
 export default tempDataArr

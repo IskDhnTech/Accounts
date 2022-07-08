@@ -3,7 +3,7 @@ import { slide as Menu } from 'react-burger-menu';
 import './Sidebar.css'
 import {useState,useEffect} from "react"
 import payment_status from '../Context/Payment_status';
-import Dashboard from './Dashboard';
+import Dashboard from './Dashboard.css';
 export default props => {
 
   const [request,setRequest]=useState("pending")

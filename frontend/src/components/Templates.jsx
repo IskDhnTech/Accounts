@@ -1,9 +1,9 @@
 import React from "react";
 import Templates from "./Templates.css";
-import useCollapse from 'react-collapsed';
+import useCollapse from "react-collapsed";
 function Template(_props) {
-
   const { getCollapseProps, getToggleProps, isExpanded } = useCollapse();
+ //const { getCollapseProps2=getCollapseProps, getToggleProps2, isExpanded2 } = useCollapse();
   return (
     <>
       <div class="container card">
@@ -47,28 +47,31 @@ function Template(_props) {
           </h5>
           <h5>
             {" "}
-            {/* <b> Details of items purchased : </b> */}
-            { 
-               <div className="collapsible">
-               <div className="header" {...getToggleProps()}>
-                   {isExpanded ? <b>Hide details of items purchased</b>  : <b>'Show details of items purchased' </b>}
-               </div>
-               <div {...getCollapseProps()}>
-                   <div className="content">
-                   <table>
-                   <tr className="text-success"><th>S No.</th> <th>Name of item</th> <th>Price</th>
-                   </tr> 
-                {_props.details_of_items.map((item) => (
-                  <tr key={item.id}>
-                    <th>{item.id}</th> <th>{item.item_name}</th>
-                    <th>{item.amt}</th>
-                  </tr>
-                ))}
-              </table>
-                   </div>
-               </div>
-           </div>
-              
+            {
+              <div className="collapsible">
+                <div className="header" {...getToggleProps()}>
+                  {isExpanded ? (
+                    <b>Hide details of items purchased</b>
+                  ) : (
+                    <b>'Show details of items purchased' </b>
+                  )}
+                </div>
+                <div {...getCollapseProps()}>
+                  <div className="content">
+                    <table>
+                      <tr className="text-success">
+                        <th>S No.</th> <th>Name of item</th> <th>Price</th>
+                      </tr>
+                      {_props.details_of_items.map((item) => (
+                        <tr key={item.id}>
+                          <th>{item.id}</th> <th>{item.item_name}</th>
+                          <th>{item.amt}</th>
+                        </tr>
+                      ))}
+                    </table>
+                  </div>
+                </div>
+              </div>
             }{" "}
           </h5>
 
@@ -82,6 +85,19 @@ function Template(_props) {
           ) : (
             <h5></h5>
           )}
+          <br />
+            
+          
+          <br />
+          <h5>
+            {" "}
+            <b> Date of Submission. : </b> {_props.date_of_submission}{" "}
+          </h5>
+          {/* <br/> */}
+          <h5>
+            {" "}
+            <b> Time of Submission. : </b> {_props.time_of_submission}{" "}
+          </h5>
           <br />
           <button type="button" class="btn btn-secondary butt">
             Move to Paid

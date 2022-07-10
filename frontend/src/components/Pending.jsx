@@ -1,6 +1,7 @@
 import React from 'react';
 import TempIndex from './TempIndex';
-import Pending from './Pending.css'
+import './Pending.css'
+
 export default props => {
   return (
     <>

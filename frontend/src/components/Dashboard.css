@@ -8,7 +8,8 @@
 .sidebar {
         margin: 0;
         padding: 10px;
-        width: 400px;
+        /* width: 400px; */
+        width:max-content;
         background-color: #f1f1f1;
         position: fixed;
         height: 100%;
@@ -39,6 +40,12 @@
         color: white;
       }
       
+      .logoutLblPos{
+
+        position:fixed;
+        right:10px;
+        top:5px;
+     }
       /* Page content. The value of the margin-left property should match the value of the sidebar's width property */
       div.content {
         margin-left: 200px;
@@ -66,4 +73,10 @@
       }
       button{
         margin:10px;
+      }
+
+      .centerFlex {
+        align-items: center;
+        display: flex;
+        justify-content: center;
       }

@@ -18,14 +18,32 @@ export default function Dashboard() {
   const [request,setRequest]=useState("pending")
   const [favorite,setFavorite]=useState(false)
   const [stats,setStats]=useState(false)
-  const[buttonColor, setbutton] =useState("green")
+  const [buttonsIndex, setButtonsIndex] = useState([1,0,0,0,0,0]);
 
-  function handleColorChange(e) {
-  const newColor = buttonColor === "green" ? "yellow" : "green";
   
-e.target.style.backgroundColor = newColor;
+  const handleClick=(ind)=>{
+    let arr=new Array(6).fill(0);
+    arr[ind]=1;
+    console.log("butt")
+    setButtonsIndex(arr);
+    let req;
+    if(ind==0) req="pending"
+    else if(ind==1) req="queried"
+    else if(ind==2) req="approved"
+    else if(ind==3) req="paid"
+    else if(ind==4) req="settled"
+    else if(ind==5) req="printedfiled"
+    console.log(req)
+    setRequest(req);
+  };
+  //const[buttonColor, setbutton] =useState("green")
 
-  }
+//   function handleColorChange(e) {
+//   const newColor = buttonColor === "green" ? "yellow" : "green";
+  
+// e.target.style.backgroundColor = newColor;
+
+//   }
 
   // useEffect(() => {
   //   <Dashboard/>
@@ -33,28 +51,33 @@ e.target.style.backgroundColor = newColor;
 
   //console.log(status)
   //console.log("nn")
+  
+  
   return (
     <>
   
-<h1 className="text-success"> Welcome to ISKCON Accounts Dashboard </h1>
+<h1 className="text-success dashboard-header"> Welcome to ISKCON Accounts Dashboard </h1>
 
-<div class="sidebar">
-  <button className ="btn btn-warning" onClick={(handleColorChange)=>{setRequest("pending")}} >Pending</button>
-  <button className ="btn btn-warning" onClick={()=>{setRequest("queried")}} >Queried</button>
-  <button className ="btn btn-warning" onClick={(e)=>{setRequest("approved");handleColorChange(e);}}>Approved</button>
-  <button className ="btn btn-warning" onClick={(e)=>{setRequest("paid");handleColorChange(e);}} >Paid</button>
-  <button className ="btn btn-warning" onClick={()=>{setRequest("settled")}} >Settled</button>
-  <button className ="btn btn-warning" onClick={()=>{setRequest("printedfiled")}} >Printed&filed</button>
+
+<div class="sidebar"  >
+  <button type="button" className ="btn btn-warning" style={{ 'background-color': buttonsIndex[0]  ? "green" : "#90ee90" }} onClick={()=>{handleClick(0)}} >Pending</button>
+  <button className ="btn btn-warning" style={{ 'background-color': buttonsIndex[1]  ? "green" : "#90ee90" }} onClick={()=>{handleClick(1)}} >Queried</button>
+  <button className ="btn btn-warning" style={{ 'background-color': buttonsIndex[2]  ? "green" : "#90ee90" }} onClick={()=>{handleClick(2)} }>Approved</button>
+  <button className ="btn btn-warning" style={{ 'background-color': buttonsIndex[3]  ? "green" : "#90ee90" }} onClick={()=>{handleClick(3)}} >Paid</button>
+  <button className ="btn btn-warning" style={{ 'background-color': buttonsIndex[4]  ? "green" : "#90ee90" }} onClick={()=>{handleClick(4)}} >Settled</button>
+  <button className ="btn btn-warning" style={{ 'background-color': buttonsIndex[5]  ? "green" : "#90ee90" }} onClick={()=>{handleClick(5)}} >Printed&filed</button>
 </div>
 {/* {console.log("ram")}  */}
 
 {/* {console.log(request)} */}
-{request=="pending" ?<Pending/>:<></>}
+{request=="pending" ? <Pending/> :<></>}
 {request=="queried" ?<Queried/>:<></>}
 {request=="approved" ?<Approved/>:<></>}
 {request=="settled" ?<Settled/>:<></>}
 {request=="paid" ?<Paid/>:<></>}
 {request=="printedfiled" ?<PrintedFiled/>:<></>}
+
+
 </>
   );
 };

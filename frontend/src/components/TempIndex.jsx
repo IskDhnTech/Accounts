@@ -12,7 +12,15 @@ export default function TempIndex() {
     
   
   tempDataArr.sort(function(a, b) { 
-    return b.payslip_no - a.payslip_no  ||  a.name.localeCompare(b.name);
+    let d1=a.date_of_submission,d2=b.date_of_submission;
+    d1 = d1.split('/');
+    d2 = d2.split('/');
+
+    let t1=a.time_of_submission,t2=b.time_of_submission;
+    t1 = t1.split(':');
+    t2 = t2.split(':');
+
+    return d2[2] - d1[2] || d2[1] - d1[1] ||  d2[0] - d1[0] || t2[2] - t1[2] || t2[1] - t1[1] ||  t2[0] - t1[0] || a.name.localeCompare(b.name);
   });
 
   return (
@@ -46,6 +54,8 @@ export default function TempIndex() {
             ifsc_code={data.ifsc_code}
             account_no={data.account_no}
             details_of_items={data.details_of_items}
+            date_of_submission={data.date_of_submission}
+            time_of_submission={data.time_of_submission}
 
             // imgsrc={data.photos}
             // title={data.propertyName}

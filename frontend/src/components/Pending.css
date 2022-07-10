@@ -1,0 +1,11 @@
+.pending{
+  text-align: center;
+  color:black;
+  font-size: 70px;
+}
+
+.centerFlex {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}

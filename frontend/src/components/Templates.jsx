@@ -6,8 +6,8 @@ function Template(_props) {
   const { getCollapseProps, getToggleProps, isExpanded } = useCollapse();
   return (
     <>
-      <div class="container card ">
-        <div class="jumbotron">
+      <div class="container card">
+        <div class="jumbotrn">
           <br />
           <h5>
             {" "}
@@ -56,7 +56,8 @@ function Template(_props) {
                <div {...getCollapseProps()}>
                    <div className="content">
                    <table>
-                   <tr><b><th>S No.</th> <th>Name of item</th> <th>Price</th></b></tr> 
+                   <tr className="text-success"><th>S No.</th> <th>Name of item</th> <th>Price</th>
+                   </tr> 
                 {_props.details_of_items.map((item) => (
                   <tr key={item.id}>
                     <th>{item.id}</th> <th>{item.item_name}</th>

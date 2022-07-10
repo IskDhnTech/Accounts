@@ -1,23 +1,52 @@
 .card{
-    margin-left: 600px;
-}
+    margin-left: 430px;
 
+}
+.jumbotrn{
+    margin: auto;
+    text-align: center;
+}
 .text{
     font-size: 200px;
 }
 
 .butt{
     
-margin-right: 20px;
+margin-right: 10px;
 }
 
-
 .collapsible .content {
-    padding: 1px;
+
     background-color: #eeeeee;
+    height: auto;
+    padding: 1px;
+    margin-left: 0%;
+
+
 }
 .collapsible .header {
     background-color: #dddddd;
     padding: 1px;
     cursor: pointer;
+    height: auto;
+
 }
+
+th, td {
+    text-align: center;
+    
+    
+  }
+  th{
+padding: 10px;
+  }
+
+  tr{
+      margin:50px;
+  }
+  table{
+      margin: auto;
+  }
+  
+
+  

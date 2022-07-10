@@ -16,6 +16,16 @@ export default function Dashboard() {
 
 //  const status=useContext(payment_status);
   const [request,setRequest]=useState("pending")
+  const [favorite,setFavorite]=useState(false)
+  const [stats,setStats]=useState(false)
+  const[buttonColor, setbutton] =useState("green")
+
+  function handleColorChange(e) {
+  const newColor = buttonColor === "green" ? "yellow" : "green";
+  
+e.target.style.backgroundColor = newColor;
+
+  }
 
   // useEffect(() => {
   //   <Dashboard/>
@@ -25,15 +35,16 @@ export default function Dashboard() {
   //console.log("nn")
   return (
     <>
-<div class='dashboard-header'> Welcome to ISKCON Accounts Dashboard </div>
+  
+<h1 className="text-success"> Welcome to ISKCON Accounts Dashboard </h1>
 
 <div class="sidebar">
-  <button onClick={()=>{setRequest("pending")}} class="active" >Pending</button>
-  <button onClick={()=>{setRequest("queried")}} >Queried</button>
-  <button onClick={()=>{setRequest("approved")}} >Approved</button>
-  <button onClick={()=>{setRequest("paid")}} >Paid</button>
-  <button onClick={()=>{setRequest("settled")}} >Settled</button>
-  <button onClick={()=>{setRequest("printedfiled")}} >Printed&filed</button>
+  <button className ="btn btn-warning" onClick={(handleColorChange)=>{setRequest("pending")}} >Pending</button>
+  <button className ="btn btn-warning" onClick={()=>{setRequest("queried")}} >Queried</button>
+  <button className ="btn btn-warning" onClick={(e)=>{setRequest("approved");handleColorChange(e);}}>Approved</button>
+  <button className ="btn btn-warning" onClick={(e)=>{setRequest("paid");handleColorChange(e);}} >Paid</button>
+  <button className ="btn btn-warning" onClick={()=>{setRequest("settled")}} >Settled</button>
+  <button className ="btn btn-warning" onClick={()=>{setRequest("printedfiled")}} >Printed&filed</button>
 </div>
 {/* {console.log("ram")}  */}
 

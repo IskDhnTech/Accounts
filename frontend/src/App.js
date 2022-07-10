@@ -8,11 +8,11 @@ import Sidebar from "./components/Sidebar";
 function App() {
   console.log();
   return (
-    <Sidebar>
+    
       <div className="App">
         <Dashboard />
       </div>
-     </Sidebar>
+     
   );
 }
 

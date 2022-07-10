@@ -9,7 +9,7 @@ import HodResponse from './pages/hod_response';
 function App() {
 
   return (
-    <div className="App">
+    <div  className="App">
      <HodResponse/>
     </div>
   );

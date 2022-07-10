@@ -1,6 +1,8 @@
 const tempDataArr=[ 
 
     {
+        date_of_submission:"10/07/2022",
+        time_of_submission:"23:20:11",
         payslip_no:"1",
         name:"Mayank Prakash",
         email_id:"mayank@voice.com",
@@ -32,6 +34,8 @@ const tempDataArr=[
 },
 {
     payslip_no:"2",
+        date_of_submission:"11/07/2022",
+        time_of_submission:"23:20:21",
         name:"Shyam Sunder",
         email_id:"shyam@voice.com",
         mobile_no:"121",
@@ -62,6 +66,9 @@ const tempDataArr=[
         },
 {
     payslip_no:"3",
+
+        date_of_submission:"10/07/2022",
+        time_of_submission:"06:10:02",
         name:"Vishwajeet Singh",
         email_id:"vishwajeet@voice.com",
         mobile_no:"124",

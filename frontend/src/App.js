@@ -4,15 +4,17 @@ import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import HodResponse from "./pages/hod_response";
 import Dashboard from "./components/Dashboard";
 import Sidebar from "./components/Sidebar";
+import Signup from "./components/Signup";
+
 
 function App() {
   console.log();
   return (
-    <Sidebar>
+    
       <div className="App">
-        <Dashboard />
+        <Dashboard/>
       </div>
-     </Sidebar>
+     
   );
 }
 

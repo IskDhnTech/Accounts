@@ -21,6 +21,9 @@ const Payslip = new mongoose.Schema(
     details: {
       type: String,
     },
+    type:{
+      type:String
+    },
     amount: {
       type: String,
     },

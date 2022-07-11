@@ -28,6 +28,7 @@ router.post("/new_payslip", async (req, res) => {
             department:req.body.department,
             details:req.body.details,
             amount:req.body.amount,
+            type:req.body.type,
             cost_center:req.body.cost_center, 
             hod:find_hod?.name,
 

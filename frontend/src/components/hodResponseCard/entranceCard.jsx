@@ -47,7 +47,7 @@ alert("entered")
   };
 
   return (
-    <Box  style={{border:"solid" ,width:"30rem",marginLeft:"32rem",marginTop:"17rem" ,borderColor:"aliceblue"}}>
+    <Box  style={{border:"solid" ,backgroundColor:"white" ,width:"30rem",marginLeft:"32rem",marginTop:"17rem" ,borderColor:"aliceblue"}}>
       <Card variant="outlined">
         <React.Fragment>
           <CardContent>

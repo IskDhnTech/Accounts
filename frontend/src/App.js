@@ -5,7 +5,7 @@ import HodResponse from "./pages/hod_response";
 import Dashboard from "./components/Dashboard";
 import Sidebar from "./components/Sidebar";
 import Signup from "./components/Signup";
-
+import Login from './components/Login.jsx'
 
 function App() {
   console.log();

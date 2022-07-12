@@ -8,7 +8,7 @@ import CardContent from "@mui/material/CardContent";
 // import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
-
+import axios from 'axios'
 
 const bull = (
   <Box
@@ -22,28 +22,28 @@ const bull = (
 const HodResponseCard_queried=({payslipData})=>{
 
 const [query,setQuery] = useState()
+const [queryDone,setQueryDone] = useState(false)
 
 const changeHandler = (event) =>{
   event.preventDefault()
   setQuery(event.target.value)
 }
-  const submitHandler = async () => {
-    // const validateWaNumber = await axios.post(
-    //   `${_api}/validateWaNumber`,
-    //   // `http://localhost:8600/validateWaNumber`,
-    //   {
-    //     sessionId: ssnId,
-    //     tutorId: tutId,
-    //     waNumber: waNumber,
-    //   }
-    // );
-alert("entered")
-    // if (validateWaNumber.data.success) {
-    //   setWaChecked(true);
-    // } else {
-    //   setWaChecked(false);
-    //   setWaCheckedError(true);
-    // }
+ 
+    const submitHandler = async () => {
+      let payload={
+        ...payslipData.data,
+        query:query
+      }
+      const query_func = await axios.post(
+        `http://localhost:8800/api/payslip/payslip_query_raised`,
+        payload
+      );
+       if(query_func.data){
+        // window.location.replace()
+        window.location.replace("/submitted")
+       }else{
+        alert("Some error occoured.Please try again!")
+       }  
   };
 
   return (

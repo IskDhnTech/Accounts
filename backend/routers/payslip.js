@@ -360,7 +360,7 @@ router.post("/payslip_approved", async (req, res) => {
       from: "iskdhn.technical@gmail.com",
       to: mailList,
       subject: `Approved`,
-      html: `<h3>Your request with payslip id <b>${req.body.payslip_id}</b> is <b> Approved</b></h3><br/>
+      html: `<h3>Request with payslip id <b>${req.body.payslip_id}</b> is <b> Approved</b></h3><br/>
         
         Name : ${req.body.name} <br/>
         Department : ${req.body.department} <br/>
@@ -380,26 +380,6 @@ router.post("/payslip_approved", async (req, res) => {
         console.log("Email sent: " + info.response);
       }
     });
-
-  //   if (req.body.medium == "mail") {
-  //     const updateSession = await Session.findOneAndUpdate(
-  //       { session_id: req.body.sessionId },
-  //       {
-  //         $push: { notified_tutors: req.body.notified_tutors },
-  //       },
-  //       {
-  //         upsert: true,
-  //         new: true,
-  //         setDefaultsOnInsert: true,
-  //       }
-  //     );
-  //     console.log(updateSession);
-  //   }
-
-    // const updateTutor = await Session.updateOne(
-    //   { session_id: req.body.sessionId, "notified_tutors.tutor_id": req.body.tutorId },
-    //   { $set: { "notified_tutors.$.medium" : 'wa-mail' } }
-    // );
 
     res.status(200).json("Email sent");
   } catch (err) {
@@ -428,7 +408,7 @@ router.post("/payslip_query_raised", async (req, res) => {
       html: `<h3>HOD has been queried on your payslip no. <b>${req.body.payslip_id}</b></h3><br/>
 
       <b>Query</b><br/>
-        <p>${req.body.query}</p></br>
+        <p>${req.body.query}</p><br/>
        <p style="color:light-gray" >
         Name : ${req.body.name} <br/>
         Department : ${req.body.department} <br/>
@@ -436,7 +416,8 @@ router.post("/payslip_query_raised", async (req, res) => {
         Phone : ${req.body.phone} <br/>
         Cost Center : ${req.body.cost_center} <br/>
         Amount :₹ ${req.body.amount} <br/>
-        Details :<br/> ${req.body.details} <br/>
+        Details :<br/> ${req.body.details} <br/><br/>
+     
         </p>
       <br /><p>Thanks,</p><p>Accounts Department</p><p>Email: iskdhn.technical@gmail.com, Contact: +917255918744</p><br/><br /><footer><p>Copyright © 2020 Tutorpoint. All rights reserved Abhay Education Pvt. Ltd.</p></footer>`,
     };

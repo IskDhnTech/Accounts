@@ -1,4 +1,4 @@
-import * as React from 'react';
+import  React ,{useState} from 'react';
 import Box from '@mui/material/Box';
 import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
@@ -7,6 +7,7 @@ import CardContent from "@mui/material/CardContent";
 // import TextField from "@mui/material/TextField";
 // import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
+import axios from 'axios'
 
 
 const bull = (
@@ -18,24 +19,18 @@ const bull = (
   </Box>
 );
 
-const hodResponseCard_approved=({payslipData})=>{
+const HodResponseCard_approved=({payslipData})=>{
+  const [approvalDone,setApprovalDone] =useState(false)
   const submitHandler = async () => {
-    // const validateWaNumber = await axios.post(
-    //   `${_api}/validateWaNumber`,
-    //   // `http://localhost:8600/validateWaNumber`,
-    //   {
-    //     sessionId: ssnId,
-    //     tutorId: tutId,
-    //     waNumber: waNumber,
-    //   }
-    // );
-alert("entered")
-    // if (validateWaNumber.data.success) {
-    //   setWaChecked(true);
-    // } else {
-    //   setWaChecked(false);
-    //   setWaCheckedError(true);
-    // }
+    const approval_func = await axios.post(
+      `http://localhost:8800/api/payslip/payslip_approved`,
+      payslipData.data
+    );
+    if(approval_func.data){
+      window.location.replace("/submitted")
+       }else{
+        alert("Some error occoured.Please try again!")
+       }
   };
 
   return (
@@ -87,4 +82,4 @@ alert("entered")
 }
 
 
-export default hodResponseCard_approved;
+export default HodResponseCard_approved;

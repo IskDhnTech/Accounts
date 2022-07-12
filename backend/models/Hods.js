@@ -18,4 +18,4 @@ const Hods = new mongoose.Schema(
   { timestamps: true }
 );
 
-module.exports = mongoose.model("Hod", Hods);
+module.exports = mongoose.model("hods", Hods);

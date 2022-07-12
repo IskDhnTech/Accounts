@@ -8,6 +8,7 @@ import CardContent from "@mui/material/CardContent";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
+import { useParams } from 'react-router-dom';
 
 const bull = (
   <Box
@@ -18,9 +19,10 @@ const bull = (
   </Box>
 );
 
-export default function OutlinedCard({ _api, ssnId, tutId, setWaChecked }) {
+export default function OutlinedCard({ _api, ssnId, tutId, setWaChecked,fetchDetails }) {
   const [waNumber, setWaNumber] = useState();
   const [waCheckedError, setWaCheckedError] = useState(false);
+  const params=useParams()
 
   const changeHandler = (e) => {
     setWaNumber(e.target.value);
@@ -28,22 +30,11 @@ export default function OutlinedCard({ _api, ssnId, tutId, setWaChecked }) {
   };
 
   const submitHandler = async () => {
-    // const validateWaNumber = await axios.post(
-    //   `${_api}/validateWaNumber`,
-    //   // `http://localhost:8600/validateWaNumber`,
-    //   {
-    //     sessionId: ssnId,
-    //     tutorId: tutId,
-    //     waNumber: waNumber,
-    //   }
-    // );
-alert("entered")
-    // if (validateWaNumber.data.success) {
-    //   setWaChecked(true);
-    // } else {
-    //   setWaChecked(false);
-    //   setWaCheckedError(true);
-    // }
+    if(waNumber==="12345"){    
+        fetchDetails(params.payslip_id)
+        }else{      
+          alert("incorrect passcode") 
+        }
   };
 
   return (

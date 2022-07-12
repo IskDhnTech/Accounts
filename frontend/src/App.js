@@ -11,9 +11,16 @@ function App() {
   console.log();
   return (
     <div  className="App">
-     <HodResponse/>
     
-        <Dashboard/>
+    
+        {/* <Dashboard/> */}
+        {<Router>
+            <Routes>
+               
+                <Route path="/" element={ <HodResponse/>} />
+                <Route path="/dashboard" element={ <Dashboard/>} /> 
+            </Routes>
+        </Router>}
       </div>
      
   );

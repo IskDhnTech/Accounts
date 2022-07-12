@@ -19,7 +19,7 @@ const bull = (
   </Box>
 );
 
-const HodResponseCard_queried=()=>{
+const HodResponseCard_queried=({payslipData})=>{
 
 const [query,setQuery] = useState()
 
@@ -60,16 +60,16 @@ alert("entered")
             component="div"
             style={{ marginTop: "20px" }}
           >
-            PAYSL100001
+            {payslipData.data.payslip_id}
           </Typography>
           <Typography
             sx={{ mb: 1.5 }}
             color="text.secondary"
             style={{ marginBottom: "20px" }}
           >
-            Name : Shivanshu<br/>
-            Amount : 50 INR <br />
-            Details : Vegetable
+            Name : {payslipData.data.name}<br/>
+            Amount : {payslipData.data.amount} <br />
+            Details : {payslipData.data.details}
           </Typography>
           <Typography style={{display:"flex", marginBottom:"20px"}}>
              

@@ -3,12 +3,17 @@ const payslip = require("../models/Payslip");
 const hod =require("../models/Hods");
 const nodemailer =require("nodemailer")
 
+
+
+
 //adding new payslip
 router.post("/new_payslip", async (req, res) => {
     try {
       const find_hod=await hod.findOne({
         department:req.body.department
       })
+
+      console.log({find_hod})
       const find_payslip_id=await payslip.find();
       console.log({find_payslip_id})
       let updated_payslip_id;
@@ -30,7 +35,7 @@ router.post("/new_payslip", async (req, res) => {
             amount:req.body.amount,
             type:req.body.type,
             cost_center:req.body.cost_center, 
-            hod:find_hod?.name,
+            hod:find_hod,
 
         }
       const payslip_add = new payslip(payload);
@@ -44,21 +49,22 @@ router.post("/new_payslip", async (req, res) => {
     }
   });
 
+  //fetch data for advance settlement
+  router.get("/fetch_payslip/:payslip_id", async (req, res) => {
+    try {
+      const data=await payslip.findOne({
+        payslip_id:req.params.payslip_id
+      })
+      res
+        .status(200)
+        .json({data});
+    } catch (err) {
+        console.log({err})
+      res.status(500).json(err);
+    }
+  });
 
-//fetch data for advance settlement
-router.post("/fetch_advanceSettelement", async (req, res) => {
-  try {
-    const data_advance=await payslip.findOne({
-      payslip_id:req.body.payslip_id
-    })
-    res
-      .status(200)
-      .json({data_advance});
-  } catch (err) {
-      console.log({err})
-    res.status(500).json(err);
-  }
-});
+
 
 //send email notification to acc department and person filling form
 router.post("/payslip_mail_send", async (req, res) => {
@@ -71,12 +77,12 @@ router.post("/payslip_mail_send", async (req, res) => {
           pass: "wggbgqqhfwaiaint",
         },
       });
-      var mailList = ['shiv7255918@gmail.com', 'iskdhn.technical@gmail.com','niraj.nitjsr@gmail.com'];
+      var mailList = ['shiv7255918@gmail.com', 'iskdhn.technical@gmail.com'];
 
       let mailOptions = {
         from: "iskdhn.technical@gmail.com",
         to: mailList,
-        subject: `${req.body.subject}`,
+        subject: `New Payslip (${req.body.department})`,
         html: `<h1><b>${
           req.body.payslip_id
         }</b></h1><br/>
@@ -283,8 +289,8 @@ router.post("/payslip_mail_send_hod", async (req, res) => {
 
     let mailOptions = {
       from: "iskdhn.technical@gmail.com",
-      to: req.body.hod,
-      subject: `${req.body.subject}`,
+      to: "shiv7255918@gmail.com",
+      subject: `New Payslip Approval (${req.body.department})`,
       html: `<h1><b>${
         req.body.payslip_id
       }</b></h1><br/>
@@ -295,9 +301,9 @@ router.post("/payslip_mail_send_hod", async (req, res) => {
         Phone : ${req.body.phone} <br/>
         Cost Center : ${req.body.cost_center} <br/>
         Amount :₹ ${req.body.amount} <br/>
-        Details :<br/> ${req.body.details} <br/>
+        Details :<br/> ${req.body.details} <br/><br/>
 
-        <button id="approve">Approve</button>&nbsp<button id="raiseQuery">Raise Query</button>
+        <button  id="approve"><a href="http://localhost:3001/approvalPage/${req.body.payslip_id}" style="text-decoration: none;">Approve</button>${" "}<button id="raiseQuery"><a href="http://localhost:3001/queryPage/${req.body.payslip_id}" style="text-decoration: none;">Raise Query</button>
         
       <br /><p>Thanks,</p><p>Accounts Department</p><p>Email: iskdhn.technical@gmail.com, Contact: +917255918744</p><br/><br /><footer><p>Copyright © 2020 Tutorpoint. All rights reserved Abhay Education Pvt. Ltd.</p></footer>`,
     };

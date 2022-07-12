@@ -31,7 +31,7 @@ const Payslip = new mongoose.Schema(
       type: String,
     },
     hod: {
-      type: String,
+      type: Object,
     },
   },
   { timestamps: true }

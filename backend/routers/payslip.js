@@ -64,7 +64,26 @@ router.post("/new_payslip", async (req, res) => {
     }
   });
 
-
+//fetch data for advance settlement
+router.post("/update_payslip/:payslip_id", async (req, res) => {
+  try {
+    const data=await payslip.updateOne({
+      payslip_id:req.params.payslip_id
+    },{    
+       
+        amount:req.body.amount,
+        details:req.body.details,
+       
+    }
+    )
+    res
+      .status(200)
+      .json({data});
+  } catch (err) {
+      console.log({err})
+    res.status(500).json(err);
+  }
+});
 
 //send email notification to acc department and person filling form
 router.post("/payslip_mail_send", async (req, res) => {

@@ -68,6 +68,10 @@ const changeHandler = (event) =>{
             style={{ marginBottom: "20px" }}
           >
             Name : {payslipData.data.name}<br/>
+            Contact No. :{payslipData.data.phone}<br/>
+            Email. :{payslipData.data.email_id}<br/>
+            Type :{payslipData.data.type}<br/>
+            Department:{payslipData.data.department}<br/>
             Amount : {payslipData.data.amount} <br />
             Details : {payslipData.data.details}
           </Typography>

@@ -32,7 +32,8 @@ const changeHandler = (event) =>{
     const submitHandler = async () => {
       let payload={
         ...payslipData.data,
-        query:query
+        query:query,
+        status:"queried"
       }
       const query_func = await axios.post(
         `http://localhost:8800/api/payslip/payslip_query_raised`,

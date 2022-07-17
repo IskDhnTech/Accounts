@@ -5,7 +5,18 @@ const nodemailer =require("nodemailer")
 
 
 
-
+//fetch all data
+router.get("/fetch_all_payslip/", async (req, res) => {
+  try {
+    const data=await payslip.find()
+    res
+      .status(200)
+      .json({data});
+  } catch (err) {
+      console.log({err})
+    res.status(500).json(err);
+  }
+});
 //adding new payslip
 router.post("/new_payslip", async (req, res) => {
     try {
@@ -400,6 +411,12 @@ router.post("/payslip_approved", async (req, res) => {
       }
     });
 
+    await payslip.updateOne({
+      payslip_id:req.body.payslip_id
+    },{      
+        status:req.body.status
+    })
+
     res.status(200).json("Email sent");
   } catch (err) {
     console.log(err);
@@ -468,7 +485,11 @@ router.post("/payslip_query_raised", async (req, res) => {
     //   { session_id: req.body.sessionId, "notified_tutors.tutor_id": req.body.tutorId },
     //   { $set: { "notified_tutors.$.medium" : 'wa-mail' } }
     // );
-
+    await payslip.updateOne({
+      payslip_id:req.body.payslip_id
+    },{      
+        status:req.body.status
+    })
     res.status(200).json("Email sent");
   } catch (err) {
     console.log(err);

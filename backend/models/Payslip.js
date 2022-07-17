@@ -33,6 +33,15 @@ const Payslip = new mongoose.Schema(
     hod: {
       type: Object,
     },
+    status:{
+      type:String
+    },
+    detailContent:{
+      type:Array
+    },
+    folderlink:{
+      type:String
+    }
   },
   { timestamps: true }
 );

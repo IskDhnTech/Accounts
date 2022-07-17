@@ -11,6 +11,7 @@ import Paid from './Paid';
 import PrintedFiled from './PrintedFiled';
 import Settled from './Settled'
 import { useState } from 'react';
+import axios from 'axios';
  
 export default function Dashboard() {
 
@@ -19,6 +20,14 @@ export default function Dashboard() {
   const [favorite,setFavorite]=useState(false)
   const [stats,setStats]=useState(false)
   const [buttonsIndex, setButtonsIndex] = useState([1,0,0,0,0,0]);
+  const [pendingData,setPendingData] =useState([])
+  const [approvedData,setApprovedData] =useState([])
+  const [queriedData,setQueriedData] =useState([])
+  const [paidData,setPaidData] =useState([])
+  const [settledData,setSettledData] =useState([])
+  const [printedData,setPrintedData] =useState([])
+  // const [cardData,setCardData] =useState()
+ 
 
   
   const handleClick=(ind)=>{
@@ -51,7 +60,42 @@ export default function Dashboard() {
 
   //console.log(status)
   //console.log("nn")
+  const fetch_all=async()=>{
+    const fetch_all=await axios.get("http://localhost:8800/api/payslip/fetch_all_payslip")
+    let fetchAll =fetch_all.data.data;
+    if(fetchAll){
+      fetchAll.map((el)=>{
+      
+      if (fetchAll.status==="pending") {
+        console.log(el)
+        setPendingData([...pendingData,el])
+      }
+      else if(fetchAll.status=="approved"){
+        setApprovedData(el)
+      }
+      else if(fetchAll.status=="queried"){
+        setQueriedData(el)
+      }
+      else if(fetchAll.status=="paid"){
+        setPaidData(el)
+      }
+      else if(fetchAll.status=="settled"){
+        setSettledData(el)
+      }
+      else if(fetchAll.status=="printed"){
+        setPrintedData(el)
+      }else{
+        console.log("not have field")
+      }
+    
+  })
+}
+  }
   
+
+  useEffect(()=>{
+    fetch_all()
+  },[])
   
   return (
     <>
@@ -70,12 +114,12 @@ export default function Dashboard() {
 {/* {console.log("ram")}  */}
 
 {/* {console.log(request)} */}
-{request=="pending" ? <Pending/> :<></>}
-{request=="queried" ?<Queried/>:<></>}
-{request=="approved" ?<Approved/>:<></>}
-{request=="settled" ?<Settled/>:<></>}
-{request=="paid" ?<Paid/>:<></>}
-{request=="printedfiled" ?<PrintedFiled/>:<></>}
+{request=="pending" ? <Pending cardData={pendingData}/> :<></>}
+{request=="queried" ?<Queried cardData={approvedData}/>:<></>}
+{request=="approved" ?<Approved cardData={queriedData}/>:<></>}
+{request=="settled" ?<Settled cardData={settledData}/>:<></>}
+{request=="paid" ?<Paid cardData={paidData}/>:<></>}
+{request=="printedfiled" ?<PrintedFiled cardData={printedData}/>:<></>}
 
 
 </>

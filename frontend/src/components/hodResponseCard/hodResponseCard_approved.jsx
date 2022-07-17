@@ -24,7 +24,7 @@ const HodResponseCard_approved=({payslipData})=>{
   const submitHandler = async () => {
     const approval_func = await axios.post(
       `http://localhost:8800/api/payslip/payslip_approved`,
-      payslipData.data
+     {...payslipData.data,status:"approved"}
     );
     if(approval_func.data){
       window.location.replace("/submitted")

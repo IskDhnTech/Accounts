@@ -8,6 +8,7 @@ import Signup from "./components/Signup";
 import Login from './components/Login.jsx'
 import SuccessAlert from "./components/SuccessAlert";
 
+
 function App() {
   console.log();
   return (
@@ -18,7 +19,7 @@ function App() {
         {<Router>
             <Routes>
                
-                {/* <Route path="/" element={ <HodResponse/>} /> */}
+                <Route path="/login" element={ <Login/>} />
                 <Route path="/dashboard" element={ <Dashboard/>} /> 
                 <Route path="/submitted" element={ <SuccessAlert/>} />
             </Routes>

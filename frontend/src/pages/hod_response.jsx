@@ -1,6 +1,6 @@
 import React,{useState,useEffect} from 'react';
 import axios from "axios"
-import { Route, Routes,Link, BrowserRouter as Router } from 'react-router-dom';
+import { Route, Switch,Link, BrowserRouter as Router } from 'react-router-dom';
 import HodResponseCard_approved from "../components/hodResponseCard/hodResponseCard_approved";  
 import HodResponseCard_queried from "../components/hodResponseCard/hodResponseCard_queried"; 
 import EntranceCard from "../components/hodResponseCard/entranceCard" 
@@ -27,11 +27,11 @@ const Hod_response = () => {
    {/* <h1 style={{color:"black"}}> hare krsna</h1> */}
    
         {<Router>
-            <Routes>
+            <Switch>
                
                 <Route path="/approvalPage/:payslip_id" element={entry ? <HodResponseCard_approved payslipData={payslipData}/> : <EntranceCard fetchDetails={fetchDetails}/>} />
                 <Route path="/queryPage/:payslip_id" element={entry ? <HodResponseCard_queried payslipData={payslipData} /> : <EntranceCard fetchDetails={fetchDetails}/>} /> 
-            </Routes>
+            </Switch>
         </Router>}
         </>
     );

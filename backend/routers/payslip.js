@@ -5,6 +5,25 @@ const nodemailer =require("nodemailer")
 
 
 
+
+//fetch all data for dashboard from payslip based on status
+router.get("/fetch_all_payslip_type1/", async (req, res) => {
+  try {
+    const Pending=await payslip.find({status:"Pending"})
+    const Queried=await payslip.find({status:"Queried"})
+    const Approved=await payslip.find({status:"Approved"})
+    const Paid=await payslip.find({status:"Paid"})
+    const Settled=await payslip.find({status:"Settled"})
+    const Printed=await payslip.find({status:"Printed"})
+    res
+      .status(200)
+      .json({Pending,Queried,Approved,Paid,Settled,Printed});
+  } catch (err) {
+      console.log({err})
+    res.status(500).json(err);
+  }
+});
+
 //fetch all data
 router.get("/fetch_all_payslip/", async (req, res) => {
   try {
@@ -17,6 +36,7 @@ router.get("/fetch_all_payslip/", async (req, res) => {
     res.status(500).json(err);
   }
 });
+
 //adding new payslip
 router.post("/new_payslip", async (req, res) => {
     try {

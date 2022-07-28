@@ -1,5 +1,5 @@
 import React from 'react';
-import './style.css';
+import '../assets/assets/css/style.css';
 import logo from '../assets/ok.gif'
 
 const SuccessAlert = () => {
